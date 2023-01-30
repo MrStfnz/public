@@ -8,12 +8,7 @@
 # update added ipmievd.service, as sometimes debian is a b#tch
 
 # Let me check the distro?
-if [ -f /etc/lsb-release ]; then
-        echo "Debian / Ubuntu found, so using apt-get for installing the correct tools"
-        apt-get install ipmitool openipmi -y
-
-#lsb release is not always available, so:
-elif [ -f /etc/debian_version ]; then
+if [ -f /etc/lsb-release ] || [ -f /etc/debian_version ]; then
         echo "Debian / Ubuntu found, so using apt-get for installing the correct tools"
         apt-get install ipmitool openipmi -y
 
@@ -22,7 +17,7 @@ elif [ -f /etc/redhat-release ]; then
         echo "RHEL / CentOS found, so using yum for installing the correct tools"
         yum install OpenIPMI ipmitool -y
 
-# if none of these three are found, you're on your own..
+# if none of these are found, you're on your own..
 else
         echo "I don't know what you are running for distro. Custom? Install 'ipmitool' and/or 'OpenIPMI' packages manually!"
 
